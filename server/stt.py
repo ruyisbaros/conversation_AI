@@ -1,4 +1,8 @@
 import wave
+import os
+from groq import Groq
+
+groq_client = Groq(api_key=os.getenv('GROQ_API_KEY'))
 
 
 async def transcribe_audio(audio_data: bytes):
