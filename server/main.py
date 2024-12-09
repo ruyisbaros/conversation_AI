@@ -51,7 +51,7 @@ async def check_health():
 @app.get("/get_audio")
 async def get_audio():
     print("Getting audio")
-    audio_input = open("harvard.wav", "rb")
+    audio_input = open("Voice001.wav", "rb")
     print("Decoding audio")
     converted_audio = convert_audio_to_text(audio_input)
     print("Transcribed audio:", converted_audio)
