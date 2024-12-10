@@ -60,6 +60,9 @@ async def get_audio():
         raise HTTPException(
             status_code=400, detail="Failed to transcribe audio")
     ai_response = get_chatResponse(converted_audio)
+    if not ai_response:
+        raise HTTPException(
+            status_code=400, detail="Failed to response from server")
     return {"transcription": ai_response}
 
 
