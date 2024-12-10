@@ -78,4 +78,4 @@ async def get_audio():
 @app.get("/reset")
 async def reset_m():
     reset_messages()
-    return {"message": "Reset messages"}
+    return {"message": "Messages reset"}
