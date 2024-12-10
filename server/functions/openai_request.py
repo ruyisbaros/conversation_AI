@@ -28,9 +28,9 @@ def get_chatResponse(message_input):
     messages.append(user_message)
     print(messages)
     try:
-        chat_completion = openai_client.chat.completions.create(
+        chat_completion = groq_client.chat.completions.create(
             messages=messages,
-            model="gpt-4o-mini",
+            model='Llama-3.3-70B-versatile'
         )
         return chat_completion.choices[0].message.content
     except Exception as e:

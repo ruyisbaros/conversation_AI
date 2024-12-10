@@ -6,10 +6,7 @@ import os
 def get_recent_messages():
     """Get recent messages from a JSON file"""
     messages = []
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-
-    # Construct the path to the JSON file
-    file_path = os.path.join(current_dir, "..", "stored_data.json")
+    file_path = 'stored_data.json'
     # Define prompt
     learn_instruction = {
         "role": "system",
@@ -25,21 +22,59 @@ def get_recent_messages():
         learn_instruction["content"] += " Your response will include rather challenging question."
 
     messages.append(learn_instruction)
-    return messages
 
-
-"""     try:
+    try:
         with open(file_path, 'r') as file:
-            data = json.load(file)
-            if data:
-                if len(data) < 5:
-                    for item in data:
-                        messages.append(item)
-                else:
-                    # recent_messages = sorted(data, key=lambda x: x['timestamp'], reverse=True)
-                    for item in data[-5:]:
-                        messages.append(item)
+            try:
+                data = json.load(file)
+                if data:
+                    if len(data) < 5:
+                        for item in data:
+                            messages.append(item)
+                    else:
+                        # recent_messages = sorted(data, key=lambda x: x['timestamp'], reverse=True)
+                        for item in data[-5:]:
+                            messages.append(item)
+            except Exception as e:
+                print(f"Error loading JSON data: {str(e)}")
+                pass
 
     except FileNotFoundError as e:
         print(f"File not found: {e}")
-        pass """
+        pass
+
+    return messages
+
+
+def store_message(request_message, response_message):
+    file_path = 'stored_data.json'
+
+    messages = get_recent_messages()[1:]  # exclude system messages
+
+    user_messages = {
+        "role": "user",
+        "content": request_message,
+    }
+
+    bot_messages = {
+        "role": "assistant",
+        "content": response_message,
+    }
+    messages.append(user_messages)
+    messages.append(bot_messages)
+
+    try:
+        with open(file_path, 'w') as file:
+            json.dump(messages, file, indent=2)
+    except Exception as e:
+        print(f"Error storing JSON data: {str(e)}")
+
+
+def reset_messages():
+    file_path = 'stored_data.json'
+
+    try:
+        with open(file_path, 'w') as file:
+            json.dump([], file, indent=2)
+    except Exception as e:
+        print(f"Error resetting JSON data: {str(e)}")

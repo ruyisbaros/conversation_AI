@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Hello, someone forwarded me to you."
+  },
+  {
+    "role": "assistant",
+    "content": "Hi Ahmet, I'm Rachel. What makes you a great fit for our retail team?"
+  }
+]
